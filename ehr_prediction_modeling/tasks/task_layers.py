@@ -21,16 +21,14 @@ from ehr_prediction_modeling import types
 from ehr_prediction_modeling.models import model_utils
 from ehr_prediction_modeling.models.nets import snr
 from ehr_prediction_modeling.tasks import mlp_task_layer
+from ehr_prediction_modeling.tasks import base_task_layer
 import sonnet as snt
 import tensorflow.compat.v1 as tf
 from ehr_prediction_modeling import configdict
 
-TaskLayers = TypeVar("TaskLayers", bound=mlp_task_layer.BaseTaskLayer)
+TaskLayers = TypeVar("TaskLayers", bound=base_task_layer.BaseTaskLayer)
 
-
-
-
-class MLPLayer(mlp_task_layer.BaseTaskLayer):
+class MLPLayer(mlp_task_layer.MLPLayer):
   """MLP task modeling layer."""
 
   def _get_task_layer(self) -> snt.BatchApply:
@@ -39,7 +37,7 @@ class MLPLayer(mlp_task_layer.BaseTaskLayer):
         snt.nets.MLP(activate_final=False, **self.layer_kwargs))
 
 
-class SNRMLPLayer(mlp_task_layer.BaseTaskLayer):
+class SNRMLPLayer(base_task_layer.BaseTaskLayer):
   """Sub Network Routine MLP task modeling layer."""
 
   def get_regularization_loss(self) -> tf.Tensor:

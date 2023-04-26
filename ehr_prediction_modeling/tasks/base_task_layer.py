@@ -24,7 +24,6 @@ from ehr_prediction_modeling.models.nets import snr
 from ehr_prediction_modeling.utils import activations
 import sonnet as snt
 import tensorflow.compat.v1 as tf
-import tensorflow_hub as hub
 import tf_slim as slim
 import tree
 

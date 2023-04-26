@@ -287,7 +287,7 @@ class AdverseOutcomeRisk(base_task.Task):
       loss_weight: float = 1.0,
       accumulate_logits: bool = True,
       scale_pos_weight: Optional[float] = 1.,
-      task_layer_type: str = types.TaskLayerTypes.MLP,
+      task_layer_type: str = types.TaskLayerTypes.SNRMLP,
       task_layer_sizes: Optional[List[int]] = None,
       regularization_type: str = types.RegularizationType.NONE,
       regularization_weight: float = 0.,
@@ -347,11 +347,23 @@ class AdverseOutcomeRisk(base_task.Task):
     config.loss_weight = loss_weight
     config.accumulate_logits = accumulate_logits
     config.scale_pos_weight = scale_pos_weight
+    config.task_layer_type = task_layer_type
     config.task_layer_sizes = task_layer_sizes or []
     config.regularization_type = regularization_type
     config.regularization_weight = regularization_weight
     # Non-empty tuple contain list of target names for computing eval loss.
     config.eval_target_names = ()
+    
+    config.snr_config = configdict.ConfigDict()
+    config.snr_config.zeta = 3.0
+    config.snr_config.gamma = -1.0
+    config.snr_config.beta = 1.0
+    config.snr_config.subnetwork_conn_l_reg_factor_weight = 0.0001
+    config.snr_config.should_pass_all_cell_outputs = True
+    config.snr_config.subnetwork_to_subnetwork_conn_type = types.SubNettoSubNetConnType.BOOL
+    config.snr_config.use_task_specific_routing = False
+    config.snr_config.input_combination_method = types.SNRInputCombinationType.CONCATENATE
+    
     return config
 
   @classmethod

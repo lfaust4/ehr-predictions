@@ -181,7 +181,7 @@ class SNRNNModel(rnn_model.BaseRNNModel):
                 inputs, prev_states[depth_index][width_index])
             lstm_outputs[depth_index][width_index] = outputs
             hidden_states[depth_index][width_index] = state
-        if self._config.cell_type == types.RNNCellType.PLSTM:
+        if self._config.cell_type == types.RNNCellType.LSTM:
           inputs = ((t_vect, lstm_outputs[depth_index]),
                     tf.expand_dims(beginning_of_sequence_mask, -1))
         else:

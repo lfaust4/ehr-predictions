@@ -143,7 +143,7 @@ def get_model_config(shared):
   # List of number of dimensions of the hidden layers of the rnn model.
   # If using types.ModelTypes.SNRNN the input expected is a list of lists where
   # each inner list would have the state dimensions for each cell in the layer.
-  model_config.ndim_lstm = [200, 200, 200]
+  model_config.ndim_lstm = [[200, 200, 200]]
 
   # RNN activation function: one of types.ActivationFunctions
   model_config.act_fn = types.ActivationFunction.TANH
@@ -152,7 +152,7 @@ def get_model_config(shared):
   model_config.scope = "model"
 
   # Whether or not to use the highway connections in the RNN.
-  model_config.use_highway_connections = True
+  model_config.use_highway_connections = False
 
   # The choice of None / L1-regularization / L2-regularization for LSTM weights.
   # One of types.RegularizationType.
@@ -170,7 +170,7 @@ def get_model_config(shared):
   model_config.leaky_relu_coeff = 0.2
 
   # Cell type for the model: one of types.RNNCellType
-  model_config.cell_type = types.RNNCellType.SRU
+  model_config.cell_type = types.RNNCellType.LSTM
 
   # Number of steps for which event sequence will be unrolled.
   model_config.num_unroll = shared.num_unroll

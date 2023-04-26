@@ -86,7 +86,7 @@ class SNRWrapper(snt.AbstractModule):
 
   def _build(self, inputs: Union[tf.Tensor, List[tf.Tensor]],
              previous_state: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
-    if self._cell_type == types.RNNCellType.PLSTM:
+    if self._cell_type == types.RNNCellType.LSTM:
       if isinstance(inputs[0][1], list):
         inputs_for_cell = ((inputs[0][0],
                             self._get_inputs_from_list(inputs[0][1])),
